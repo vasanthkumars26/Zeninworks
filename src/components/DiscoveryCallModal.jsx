@@ -12,7 +12,7 @@ const DiscoveryCallModal = ({ isOpen, onClose, darkMode }) => {
     e.preventDefault();
     setStatus('loading');
     try {
-      await axios.post('http://localhost:5000/api/booking', formData);
+      await axios.post('https://zeninworks-be.onrender.com/api/booking', formData);
       setStatus('success');
       setTimeout(() => {
         setStatus('idle');

@@ -19,7 +19,7 @@ const AdminDashboard = ({ darkMode }) => {
     try {
       // Fetch inquiries
       try {
-        const inqRes = await axios.get('http://localhost:5000/api/inquiry');
+        const inqRes = await axios.get('https://zeninworks-be.onrender.com/api/inquiry');
         setInquiries(inqRes.data);
       } catch (err) {
         console.error("Error fetching inquiries:", err);
@@ -27,7 +27,7 @@ const AdminDashboard = ({ darkMode }) => {
 
       // Fetch bookings
       try {
-        const bookRes = await axios.get('http://localhost:5000/api/booking');
+        const bookRes = await axios.get('https://zeninworks-be.onrender.com/api/booking');
         setBookings(bookRes.data);
       } catch (err) {
         console.error("Error fetching bookings:", err);
@@ -35,7 +35,7 @@ const AdminDashboard = ({ darkMode }) => {
       
       // Fetch projects
       try {
-        const projRes = await axios.get('http://localhost:5000/api/project');
+        const projRes = await axios.get('https://zeninworks-be.onrender.com/api/project');
         setProjectsCount(projRes.data.length);
       } catch (err) {
         console.error("Error fetching projects:", err);
@@ -53,7 +53,7 @@ const AdminDashboard = ({ darkMode }) => {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.patch(`http://localhost:5000/api/inquiry/${id}`, { status });
+      await axios.patch(`https://zeninworks-be.onrender.com/api/inquiry/${id}`, { status });
       setInquiries(inquiries.map(i => i._id === id ? { ...i, status } : i));
     } catch (err) {
       console.error(err);
@@ -62,7 +62,7 @@ const AdminDashboard = ({ darkMode }) => {
 
   const deleteInquiry = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/inquiry/${id}`);
+      await axios.delete(`https://zeninworks-be.onrender.com/api/inquiry/${id}`);
       setInquiries(inquiries.filter(i => i._id !== id));
     } catch (err) {
       console.error(err);
@@ -74,7 +74,7 @@ const AdminDashboard = ({ darkMode }) => {
       const payload = { status };
       if (gmeetLink !== undefined) payload.gmeetLink = gmeetLink;
       
-      const res = await axios.patch(`http://localhost:5000/api/booking/${id}`, payload);
+      const res = await axios.patch(`https://zeninworks-be.onrender.com/api/booking/${id}`, payload);
       setBookings(bookings.map(b => b._id === id ? res.data : b));
     } catch (err) {
       console.error(err);
@@ -83,7 +83,7 @@ const AdminDashboard = ({ darkMode }) => {
 
   const deleteBooking = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/booking/${id}`);
+      await axios.delete(`https://zeninworks-be.onrender.com/api/booking/${id}`);
       setBookings(bookings.filter(b => b._id !== id));
     } catch (err) {
       console.error(err);
@@ -104,7 +104,7 @@ const AdminDashboard = ({ darkMode }) => {
         formData.append('image', projectImage);
       }
 
-      await axios.post('http://localhost:5000/api/project', formData, {
+      await axios.post('https://zeninworks-be.onrender.com/api/project', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
       setAddMsg('Project added successfully!');

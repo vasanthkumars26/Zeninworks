@@ -26,7 +26,7 @@ const Founders = ({ darkMode }) => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">Built by Two Brothers.</h2>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">Crafted by Two Minds, Built for Impact</h2>
           <p className="text-lg text-slate-500">Premium technical engineering meets elite design.</p>
         </motion.div>
         

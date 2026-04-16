@@ -14,7 +14,7 @@ const Contact = ({ darkMode }) => {
     try {
       // In production use proper ENV URL. 
       // Assuming a default vite proxy or full path.
-      await axios.post('http://localhost:5000/api/inquiry', formData);
+      await axios.post('https://zeninworks-be.onrender.com/api/inquiry', formData);
       setStatus('success');
       setFormData({ name: '', email: '', projectType: '', budget: '', deadline: '', requirements: '' });
       setTimeout(() => setStatus('idle'), 3000);
