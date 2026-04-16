@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+@layer base {
+  body {
+    @apply bg-white text-slate-900 font-sans antialiased;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Premium smooth particle popper & floating dots */
+.bg-particles {
+  background-image: radial-gradient(circle at center, #cbd5e1 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.premium-shadow {
+  box-shadow: 0 10px 40px -10px rgba(0,0,0,0.05);
+}
+
+.premium-border {
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes counter-orbit {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+.animate-orbit {
+  animation: orbit 24s linear infinite;
+}
+
+.animate-counter-orbit {
+  animation: counter-orbit 24s linear infinite;
+}
+
+.group:hover .animate-orbit,
+.group:hover .animate-counter-orbit {
+  animation-play-state: paused;
+}
