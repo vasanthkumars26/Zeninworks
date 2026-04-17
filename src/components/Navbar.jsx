@@ -40,12 +40,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 {link.label}
               </motion.a>
             ))}
-            <Link
-              to="/admin"
-              className="text-sm font-bold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
-            >
-              Admin Dashboard
-            </Link>
+
           </nav>
 
           <motion.div 
@@ -104,13 +99,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                   </a>
                 ))}
                 <div className="h-px bg-slate-100 dark:bg-slate-800 my-1 mx-4"></div>
-                <Link
-                  to="/admin"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="px-5 py-3 text-sm font-bold text-blue-600 dark:text-blue-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
-                >
-                  Admin Dashboard
-                </Link>
+
                 <a
                   href="#contact"
                   onClick={() => setIsMobileMenuOpen(false)}

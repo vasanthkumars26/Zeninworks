@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 
+const API_URL = window.location.hostname === 'localhost' ? "http://localhost:5000" : "https://zeninworks-be.onrender.com";
+
 const Projects = ({ darkMode }) => {
   const defaultProjects = [
     {
@@ -32,7 +34,7 @@ const Projects = ({ darkMode }) => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await axios.get('https://zeninworks-be.onrender.com/api/project');
+        const res = await axios.get(`${API_URL}/api/project`);
         if (res.data && res.data.length > 0) {
           setProjects([...res.data, ...defaultProjects]);
         }
@@ -74,7 +76,7 @@ const Projects = ({ darkMode }) => {
                 <div className="relative w-full h-56 sm:h-64 overflow-hidden bg-slate-100 dark:bg-slate-800 shrink-0">
                   <div 
                     className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                    style={{ backgroundImage: `url(${project.image.startsWith('/uploads') ? 'http://localhost:5000' + project.image : project.image})` }}
+                    style={{ backgroundImage: `url(${project.image.startsWith('/uploads') ? API_URL + project.image : project.image})` }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
