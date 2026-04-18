@@ -25,6 +25,16 @@ const AdminDashboard = ({ darkMode }) => {
   const [addingProject, setAddingProject] = useState(false);
   const [addMsg, setAddMsg] = useState('');
   const [editProjectId, setEditProjectId] = useState(null);
+  
+  // Toast Notification State
+  const [toast, setToast] = useState({ show: false, message: '', type: '' });
+
+  const showToast = (message, type = 'success') => {
+    setToast({ show: true, message, type });
+    setTimeout(() => {
+      setToast({ show: false, message: '', type: '' });
+    }, 4000);
+  };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -114,8 +124,12 @@ const AdminDashboard = ({ darkMode }) => {
       
       const res = await axios.patch(`${API_URL}/api/booking/${id}`, payload);
       setBookings(bookings.map(b => b._id === id ? res.data : b));
+      if (gmeetLink !== undefined) {
+        showToast('Meeting link sent successfully to client!', 'success');
+      }
     } catch (err) {
       console.error(err);
+      showToast('Failed to send link. Please try again.', 'error');
     }
   };
 
@@ -310,6 +324,41 @@ const AdminDashboard = ({ darkMode }) => {
 
   return (
     <div className={`min-h-screen pt-32 pb-24 px-6 ${darkMode ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'}`}>
+      {/* Toast Notification */}
+      <AnimatePresence>
+        {toast.show && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.9 }}
+            className={`fixed bottom-8 right-8 z-50 flex items-center gap-3 px-6 py-4 rounded-2xl shadow-2xl border ${
+              toast.type === 'success' 
+                ? (darkMode ? 'bg-emerald-900/90 border-emerald-800 text-emerald-100' : 'bg-emerald-50 border-emerald-200 text-emerald-800')
+                : (darkMode ? 'bg-red-900/90 border-red-800 text-red-100' : 'bg-red-50 border-red-200 text-red-800')
+            } backdrop-blur-md`}
+          >
+            {toast.type === 'success' ? (
+              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                <svg className="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+              </div>
+            ) : (
+              <div className="w-8 h-8 rounded-full bg-red-500/20 flex items-center justify-center">
+                <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+              </div>
+            )}
+            <div>
+              <p className="font-semibold text-sm">
+                {toast.type === 'success' ? 'Success' : 'Error'}
+              </p>
+              <p className="text-sm opacity-90">{toast.message}</p>
+            </div>
+            <button onClick={() => setToast({ show: false, message: '', type: '' })} className="ml-4 p-1 opacity-50 hover:opacity-100 transition">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-10 mt-6 md:mt-0">
           <h1 className="text-4xl font-bold tracking-tight">Admin Dashboard</h1>
@@ -575,6 +624,12 @@ const AdminDashboard = ({ darkMode }) => {
                         <span className="font-medium">{booking.time}</span>
                       </div>
                     </div>
+                    {booking.message && (
+                      <div className={`p-4 rounded-xl text-sm ${darkMode ? 'bg-slate-950' : 'bg-slate-50'}`}>
+                        <span className="block text-xs text-slate-500 uppercase tracking-wider mb-1">Message / Agenda</span>
+                        <p className="text-slate-700 dark:text-slate-300 italic">{booking.message}</p>
+                      </div>
+                    )}
                   </div>
 
                   <div className="border-t border-slate-200 dark:border-slate-800 pt-4 mt-auto">

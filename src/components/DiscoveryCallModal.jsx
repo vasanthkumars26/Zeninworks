@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 
 const DiscoveryCallModal = ({ isOpen, onClose, darkMode }) => {
-  const [formData, setFormData] = useState({ name: '', email: '', date: '', time: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', date: '', time: '', message: '' });
   const [status, setStatus] = useState('idle'); // idle, loading, success, error
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -16,7 +16,7 @@ const DiscoveryCallModal = ({ isOpen, onClose, darkMode }) => {
       setStatus('success');
       setTimeout(() => {
         setStatus('idle');
-        setFormData({ name: '', email: '', date: '', time: '' });
+        setFormData({ name: '', email: '', date: '', time: '', message: '' });
         onClose();
       }, 2000);
     } catch (err) {
@@ -76,6 +76,11 @@ const DiscoveryCallModal = ({ isOpen, onClose, darkMode }) => {
                     <label className="block text-xs font-semibold text-slate-500 mb-1 ml-1 uppercase tracking-wider">Time</label>
                     <input required type="time" name="time" value={formData.time} onChange={handleChange} className={inputClass} />
                   </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-slate-500 mb-1 ml-1 uppercase tracking-wider">Message / Agenda (Optional)</label>
+                  <textarea name="message" value={formData.message} onChange={handleChange} className={`${inputClass} min-h-[80px] py-3 resize-y`} placeholder="What would you like to discuss?"></textarea>
                 </div>
 
                 <div className="pt-2">
