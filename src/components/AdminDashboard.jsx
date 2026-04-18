@@ -635,12 +635,7 @@ const AdminDashboard = ({ darkMode }) => {
                   </div>
 
                   <div className="border-t border-slate-200 dark:border-slate-800 pt-4 mt-auto">
-                    <div className="flex gap-2 items-center justify-between mb-2">
-                      <label className="block text-xs font-semibold text-slate-500">Google Meet Link</label>
-                      <a href={`https://wa.me/${booking.mobile ? booking.mobile.replace(/\D/g, '') : ''}?text=Hello ${encodeURIComponent(booking.name)}, your discovery call with Zeninworks is confirmed for ${booking.date} at ${booking.time}.`} target="_blank" rel="noreferrer" title="Automated Message via WhatsApp" className={`flex items-center gap-1 text-xs px-2 py-1 rounded-md font-medium transition ${darkMode ? 'bg-green-900/30 text-green-400 hover:bg-green-900/50' : 'bg-green-50 text-green-600 hover:bg-green-100'}`}>
-                        <MessageCircle className="w-3 h-3" /> WhatsApp
-                      </a>
-                    </div>
+                    <label className="block text-xs font-semibold text-slate-500 mb-2">Google Meet Link</label>
                     <div className="flex gap-2 mb-4">
                       <input 
                         type="url" 

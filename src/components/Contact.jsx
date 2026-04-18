@@ -6,6 +6,7 @@ const Contact = ({ darkMode }) => {
   const [formData, setFormData] = useState({
     name: '', email: '', mobile: '', projectType: '', budget: '', deadline: '', requirements: ''
   });
+  const [countryCode, setCountryCode] = useState('+91');
   const [status, setStatus] = useState('idle');
 
   const handleSubmit = async (e) => {
@@ -14,7 +15,11 @@ const Contact = ({ darkMode }) => {
     try {
       // In production use proper ENV URL. 
       // Assuming a default vite proxy or full path.
-      await axios.post('https://zeninworks-be.onrender.com/api/inquiry', formData);
+      const submitData = {
+        ...formData,
+        mobile: `${countryCode} ${formData.mobile}`
+      };
+      await axios.post('https://zeninworks-be.onrender.com/api/inquiry', submitData);
       setStatus('success');
       setFormData({ name: '', email: '', mobile: '', projectType: '', budget: '', deadline: '', requirements: '' });
       setTimeout(() => setStatus('idle'), 3000);
@@ -49,7 +54,20 @@ const Contact = ({ darkMode }) => {
                 <input required type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" className={inputClass} />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <input required type="tel" name="mobile" value={formData.mobile} onChange={handleChange} placeholder="Mobile Number (with Country Code)" className={inputClass} />
+                <div className="flex gap-2">
+                  <select 
+                    value={countryCode} 
+                    onChange={(e) => setCountryCode(e.target.value)} 
+                    className={`w-[110px] h-14 rounded-xl px-2 border focus:ring-2 outline-none transition-all cursor-pointer font-medium ${darkMode ? 'bg-slate-900 border-slate-800 focus:border-slate-600 focus:ring-slate-800 text-white' : 'bg-slate-50 border-slate-200 focus:border-slate-400 focus:ring-slate-100 text-slate-900'}`}
+                  >
+                    <option value="+91">🇮🇳 +91</option>
+                    <option value="+1">🇺🇸 +1</option>
+                    <option value="+44">🇬🇧 +44</option>
+                    <option value="+61">🇦🇺 +61</option>
+                    <option value="+971">🇦🇪 +971</option>
+                  </select>
+                  <input required type="tel" name="mobile" value={formData.mobile} onChange={handleChange} placeholder="Mobile Number" className={`${inputClass} flex-1`} />
+                </div>
                 <input required type="text" name="projectType" value={formData.projectType} onChange={handleChange} placeholder="Project Type" className={inputClass} />
               </div>
               <div className="grid grid-cols-2 gap-4">
