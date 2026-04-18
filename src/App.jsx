@@ -56,9 +56,9 @@ function App() {
         <div className="relative z-10 w-full">
           <Routes>
             <Route path="/" element={<MainContent darkMode={darkMode} />} />
-            <Route path="/admin" element={<AdminDashboard darkMode={darkMode} />} />
+            <Route path="/zeninadminworks" element={<AdminDashboard darkMode={darkMode} />} />
           </Routes>
-          <Footer darkMode={darkMode} />
+          <Footer darkMode={darkMode} /> 
         </div>
       </div>
     </Router>
