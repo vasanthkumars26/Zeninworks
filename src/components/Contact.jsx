@@ -43,7 +43,7 @@ const Contact = ({ darkMode }) => {
             <p className="text-xl text-slate-500 mb-10">We are currently accepting new projects for Q3.</p>
             <div className={`p-8 rounded-[2rem] premium-shadow ${darkMode ? 'bg-slate-800/50' : 'bg-slate-50'}`}>
               <h3 className="text-lg font-semibold mb-2">Direct Contact</h3>
-              <p className="text-slate-500">hello@zeninworks.com</p>
+              <p className="text-slate-500">info@zeninworks.com</p>
             </div>
           </motion.div>
 

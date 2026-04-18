@@ -7,6 +7,14 @@ import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
 
 const API_URL = window.location.hostname === 'localhost' ? "http://localhost:5000" : "https://zeninworks-be.onrender.com";
 
+// Setup axios interceptor for admin routes
+axios.interceptors.request.use((config) => {
+  if (config.url.includes(API_URL)) {
+    config.headers['x-api-key'] = import.meta.env.VITE_ADMIN_API_KEY || 'zeninworks_secret_admin_2026';
+  }
+  return config;
+});
+
 const AdminDashboard = ({ darkMode }) => {
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
