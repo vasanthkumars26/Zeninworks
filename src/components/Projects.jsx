@@ -34,7 +34,11 @@ const Projects = ({ darkMode }) => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await axios.get(`${API_URL}/api/project`);
+        const res = await axios.get(`${API_URL}/api/project`, {
+          headers: {
+            'x-api-key': import.meta.env.VITE_ADMIN_API_KEY || 'zeninworks_secret_admin_2026'
+          }
+        });
         if (res.data && res.data.length > 0) {
           setProjects([...res.data, ...defaultProjects]);
         }
