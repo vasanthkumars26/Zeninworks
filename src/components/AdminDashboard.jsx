@@ -544,6 +544,7 @@ const AdminDashboard = ({ darkMode }) => {
                   <div className="space-y-3 mb-6 flex-1">
                     <p className="text-sm"><span className="font-semibold">Type:</span> {inq.projectType}</p>
                     <p className="text-sm"><span className="font-semibold">Budget:</span> {inq.budget}</p>
+                    {inq.mobile && <p className="text-sm"><span className="font-semibold">Mobile:</span> {inq.mobile}</p>}
                     {inq.deadline && <p className="text-sm"><span className="font-semibold">Deadline:</span> {inq.deadline}</p>}
                     <div className={`p-4 rounded-xl text-sm ${darkMode ? 'bg-slate-950' : 'bg-slate-50'}`}>
                       {inq.requirements}
@@ -555,7 +556,7 @@ const AdminDashboard = ({ darkMode }) => {
                       <a href={`mailto:${inq.email}?subject=Reply to your Zeninworks Inquiry`} title="Reply via Mail" className={`p-2 rounded-full transition ${darkMode ? 'hover:bg-slate-800 text-slate-300' : 'hover:bg-slate-100 text-slate-600'}`}>
                         <Mail className="w-5 h-5" />
                       </a>
-                      <a href={`https://wa.me/?text=Hello ${encodeURIComponent(inq.name)}, reaching out from Zeninworks regarding your project inquiry!`} target="_blank" rel="noreferrer" title="Reply via WhatsApp" className={`p-2 rounded-full transition ${darkMode ? 'hover:bg-slate-800 text-green-400' : 'hover:bg-slate-100 text-green-600'}`}>
+                      <a href={`https://wa.me/${inq.mobile ? inq.mobile.replace(/\D/g, '') : ''}?text=Hello ${encodeURIComponent(inq.name)}, reaching out from Zeninworks regarding your project inquiry!`} target="_blank" rel="noreferrer" title="Automated Message via WhatsApp" className={`p-2 rounded-full transition ${darkMode ? 'hover:bg-slate-800 text-green-400' : 'hover:bg-slate-100 text-green-600'}`}>
                         <MessageCircle className="w-5 h-5" />
                       </a>
                     </div>
@@ -607,6 +608,7 @@ const AdminDashboard = ({ darkMode }) => {
                     <div>
                       <h3 className="text-xl font-bold">{booking.name}</h3>
                       <p className="text-sm text-slate-500">{booking.email}</p>
+                      {booking.mobile && <p className="text-sm text-slate-500">{booking.mobile}</p>}
                     </div>
                     <span className={`px-3 py-1 rounded-full text-xs font-semibold ${booking.status === 'Pending' ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'}`}>
                       {booking.status || 'Pending'}
@@ -633,7 +635,12 @@ const AdminDashboard = ({ darkMode }) => {
                   </div>
 
                   <div className="border-t border-slate-200 dark:border-slate-800 pt-4 mt-auto">
-                    <label className="block text-xs font-semibold text-slate-500 mb-2">Google Meet Link</label>
+                    <div className="flex gap-2 items-center justify-between mb-2">
+                      <label className="block text-xs font-semibold text-slate-500">Google Meet Link</label>
+                      <a href={`https://wa.me/${booking.mobile ? booking.mobile.replace(/\D/g, '') : ''}?text=Hello ${encodeURIComponent(booking.name)}, your discovery call with Zeninworks is confirmed for ${booking.date} at ${booking.time}.`} target="_blank" rel="noreferrer" title="Automated Message via WhatsApp" className={`flex items-center gap-1 text-xs px-2 py-1 rounded-md font-medium transition ${darkMode ? 'bg-green-900/30 text-green-400 hover:bg-green-900/50' : 'bg-green-50 text-green-600 hover:bg-green-100'}`}>
+                        <MessageCircle className="w-3 h-3" /> WhatsApp
+                      </a>
+                    </div>
                     <div className="flex gap-2 mb-4">
                       <input 
                         type="url" 

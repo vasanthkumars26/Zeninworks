@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const Contact = ({ darkMode }) => {
   const [formData, setFormData] = useState({
-    name: '', email: '', projectType: '', budget: '', deadline: '', requirements: ''
+    name: '', email: '', mobile: '', projectType: '', budget: '', deadline: '', requirements: ''
   });
   const [status, setStatus] = useState('idle');
 
@@ -16,7 +16,7 @@ const Contact = ({ darkMode }) => {
       // Assuming a default vite proxy or full path.
       await axios.post('https://zeninworks-be.onrender.com/api/inquiry', formData);
       setStatus('success');
-      setFormData({ name: '', email: '', projectType: '', budget: '', deadline: '', requirements: '' });
+      setFormData({ name: '', email: '', mobile: '', projectType: '', budget: '', deadline: '', requirements: '' });
       setTimeout(() => setStatus('idle'), 3000);
     } catch (error) {
       console.error(error);
@@ -44,11 +44,14 @@ const Contact = ({ darkMode }) => {
 
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input required type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" className={inputClass} />
                 <input required type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" className={inputClass} />
               </div>
-              <input required type="text" name="projectType" value={formData.projectType} onChange={handleChange} placeholder="Project Type" className={inputClass} />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input required type="tel" name="mobile" value={formData.mobile} onChange={handleChange} placeholder="Mobile Number (with Country Code)" className={inputClass} />
+                <input required type="text" name="projectType" value={formData.projectType} onChange={handleChange} placeholder="Project Type" className={inputClass} />
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 <input required type="text" name="budget" value={formData.budget} onChange={handleChange} placeholder="Budget Range" className={inputClass} />
                 <input type="text" name="deadline" value={formData.deadline} onChange={handleChange} placeholder="Deadline" className={inputClass} />

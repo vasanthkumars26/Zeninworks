@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 
 const DiscoveryCallModal = ({ isOpen, onClose, darkMode }) => {
-  const [formData, setFormData] = useState({ name: '', email: '', date: '', time: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', mobile: '', date: '', time: '', message: '' });
   const [status, setStatus] = useState('idle'); // idle, loading, success, error
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -16,7 +16,7 @@ const DiscoveryCallModal = ({ isOpen, onClose, darkMode }) => {
       setStatus('success');
       setTimeout(() => {
         setStatus('idle');
-        setFormData({ name: '', email: '', date: '', time: '', message: '' });
+        setFormData({ name: '', email: '', mobile: '', date: '', time: '', message: '' });
         onClose();
       }, 2000);
     } catch (err) {
@@ -63,9 +63,15 @@ const DiscoveryCallModal = ({ isOpen, onClose, darkMode }) => {
                   <label className="block text-xs font-semibold text-slate-500 mb-1 ml-1 uppercase tracking-wider">Name</label>
                   <input required type="text" name="name" value={formData.name} onChange={handleChange} className={inputClass} placeholder="John Doe" />
                 </div>
-                <div>
-                  <label className="block text-xs font-semibold text-slate-500 mb-1 ml-1 uppercase tracking-wider">Email</label>
-                  <input required type="email" name="email" value={formData.email} onChange={handleChange} className={inputClass} placeholder="john@example.com" />
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-500 mb-1 ml-1 uppercase tracking-wider">Email</label>
+                    <input required type="email" name="email" value={formData.email} onChange={handleChange} className={inputClass} placeholder="john@example.com" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-500 mb-1 ml-1 uppercase tracking-wider">Mobile No.</label>
+                    <input required type="tel" name="mobile" value={formData.mobile} onChange={handleChange} className={inputClass} placeholder="+1 234 567 8900" />
+                  </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
