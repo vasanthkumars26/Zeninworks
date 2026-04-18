@@ -11,6 +11,8 @@ const AdminDashboard = ({ darkMode }) => {
   const [user, setUser] = useState(null);
   const [authLoading, setAuthLoading] = useState(true);
   const [authError, setAuthError] = useState('');
+  
+  const ADMIN_UID = 'j2CH17O466YnJueOjXQy1x6nUTj2';
 
   const [inquiries, setInquiries] = useState([]);
   const [bookings, setBookings] = useState([]);
@@ -268,6 +270,38 @@ const AdminDashboard = ({ darkMode }) => {
               <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
             </svg>
             Continue with Google
+          </button>
+        </motion.div>
+      </div>
+    );
+  }
+
+  if (user && user.uid !== ADMIN_UID) {
+    return (
+      <div className={`min-h-screen flex items-center justify-center px-4 relative overflow-hidden ${darkMode ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'}`}>
+        {/* Decorative Background Elements */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-[100px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-[100px]" />
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className={`max-w-md w-full relative z-10 p-10 rounded-[2.5rem] premium-shadow premium-border text-center ${darkMode ? 'bg-slate-900/80 backdrop-blur-xl border-slate-800/10' : 'bg-white/80 backdrop-blur-xl border-white'}`}
+        >
+          <div className={`w-16 h-16 mx-auto mb-6 rounded-2xl flex items-center justify-center ${darkMode ? 'bg-red-900/50' : 'bg-red-100'}`}>
+            <svg className={`w-8 h-8 ${darkMode ? 'text-red-400' : 'text-red-600'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <h1 className="text-3xl font-bold mb-3 tracking-tight">Access Denied</h1>
+          <p className="text-slate-500 mb-8">You do not have administrative privileges to view this page. If you believe this is an error, please try logging out and signing in with the correct account.</p>
+          
+          <button 
+            onClick={handleLogout}
+            className={`w-full py-4 px-4 rounded-xl font-bold flex items-center justify-center gap-3 transition-all hover:scale-[1.02] active:scale-[0.98] ${darkMode ? 'bg-white text-slate-900 shadow-xl shadow-white/10' : 'bg-slate-900 text-white shadow-xl shadow-slate-900/20'}`}
+          >
+            <LogOut className="w-5 h-5" />
+            Sign Out
           </button>
         </motion.div>
       </div>
