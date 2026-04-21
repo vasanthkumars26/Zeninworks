@@ -23,11 +23,24 @@ const Navbar = ({ darkMode, setDarkMode }) => {
       <header className="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl border-b border-white/20 dark:border-slate-800 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <div className="flex relative z-50">
-            <Link to="/" className="flex flex-row items-center font-bold tracking-tight text-slate-900 dark:text-white drop-shadow-sm cursor-pointer hover:opacity-80 transition-opacity z-50">
+            {/* <Link to="/" className="flex flex-row items-center font-bold tracking-tight text-slate-900 dark:text-white drop-shadow-sm cursor-pointer hover:opacity-80 transition-opacity z-50">
+              <Logo />
+            </Link> */}
+
+            <Link
+              to="/"
+              onClick={(e) => {
+                if (window.location.pathname === "/") {
+                  e.preventDefault(); // stop re-navigation
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              }}
+              className="flex flex-row items-center font-bold tracking-tight text-slate-900 dark:text-white drop-shadow-sm cursor-pointer hover:opacity-80 transition-opacity z-50"
+            >
               <Logo />
             </Link>
           </div>
-          
+
           <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <motion.a
@@ -43,7 +56,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
           </nav>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-3 sm:gap-4"

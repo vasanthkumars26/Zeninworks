@@ -20,7 +20,7 @@ const AdminDashboard = ({ darkMode }) => {
   const [authLoading, setAuthLoading] = useState(true);
   const [authError, setAuthError] = useState('');
   
-  const ADMIN_UID = 'j2CH17O466YnJueOjXQy1x6nUTj2';
+  const ADMIN_UID = import.meta.env.VITE_ADMIN_UID || 'hRqyQXaXiuWgebWdbe5TXFV7kTu2';
 
   const [inquiries, setInquiries] = useState([]);
   const [bookings, setBookings] = useState([]);
