@@ -25,7 +25,7 @@ const Hero = ({ darkMode }) => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] text-slate-900 dark:text-white mb-6">
+            <h1 className="text-5xl sm:text-4xl m-5 ml-0 md:m-0  lg:text-7xl font-extrabold tracking-tight leading-[1.1] text-slate-900 dark:text-white mb-6">
               We craft scalable <br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-400 to-slate-900 dark:from-slate-200 dark:to-slate-500">MERN products</span> <br/>
               for startups.
